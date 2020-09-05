@@ -35,11 +35,13 @@ class MainPanel extends Component<MainProps, MainState> {
   };
 
   componentDidMount() {
+    ipcRenderer.send('return-db-list');
+
     // Listening for returnedData from executing Query
     // Update state with new object (containing query data, query statistics, query schema
     // inside of state.queries array
     ipcRenderer.on('return-execute-query', (event: any, returnedData: any) => {
-      console.log('returnedData', returnedData);
+      console.log('RETURNED DATA IN MAIN PANEL', returnedData);
       // destructure from returnedData from backend
       const { queryString, queryData, queryStatistics, queryCurrentSchema, queryLabel } = returnedData;
       // create new query object with returnedData
@@ -59,7 +61,7 @@ class MainPanel extends Component<MainProps, MainState> {
 
     ipcRenderer.on('db-lists', (event: any, returnedLists: any) => {
       this.setState({ dbLists: returnedLists })
-      console.log('DB LIST CHECK !', this.state.dbLists);
+      this.onClickTabItem(this.state.dbLists.databaseList[this.state.dbLists.databaseList.length - 1])
     })
   }
 
@@ -82,4 +84,5 @@ class MainPanel extends Component<MainProps, MainState> {
     );
   }
 }
+
 export default MainPanel;
