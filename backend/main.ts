@@ -72,7 +72,7 @@ function createWindow() {
   // Don't show until we are ready and loaded
   mainWindow.once('ready-to-show', (event) => {
     mainWindow.show();
-    const runDocker: string = `cd database && docker-compose up -d`;
+    const runDocker: string = `docker-compose up -d`;
     exec(runDocker, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
@@ -88,6 +88,22 @@ function createWindow() {
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
+    // Stop and remove postgres-1 and busybox-1 Docker containers upon window exit.
+    const pruneContainers: string = 'docker rm -f postgres-1 busybox-1';
+    const executeQuery = (str) => {
+      exec(str, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+        }
+        console.log(`${stdout}`);
+      })
+    };
+    executeQuery(pruneContainers);
     mainWindow = null;
   });
 }
