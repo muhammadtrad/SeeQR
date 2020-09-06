@@ -129,7 +129,8 @@ input *:focus {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0px 0px 5px grey;
+  -webkit-box-shadow: inset 0px 0px 5px grey;
+          box-shadow: inset 0px 0px 5px grey;
   border-radius: 10px;
 }
 
