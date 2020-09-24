@@ -17,6 +17,7 @@ export class History extends Component<HistoryProps> {
   }
 
   renderTableHistory() {
+    console.log(JSON.stringify(this.props));
     return this.props.queries.map((query, index) => {
       const { queryStatistics, querySchema, queryLabel } = query;
 
@@ -42,7 +43,7 @@ export class History extends Component<HistoryProps> {
 
   render() {
     const { queries } = this.props;
-
+    console.log(this.props);
     return (
       <div id="history-panel">
         <h3>History</h3>
