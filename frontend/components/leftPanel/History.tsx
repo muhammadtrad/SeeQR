@@ -17,7 +17,6 @@ export class History extends Component<HistoryProps> {
   }
 
   renderTableHistory() {
-    console.log(JSON.stringify(this.props));
     return this.props.queries.map((query, index) => {
       const { queryStatistics, querySchema, queryLabel } = query;
 
