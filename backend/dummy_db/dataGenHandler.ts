@@ -1,6 +1,8 @@
 const faker = require('faker');
-const fakerLink = require('./fakerLink');
-const types = require('./dataTypeLibrary');
+const {fakerLink} = require('./fakerLink');
+const {types} = require('./dataTypeLibrary');
+
+/* --- MAIN FUNCTION --- */
 
 // GENERATE 'INSERT INTO' QUERY STRING
 // Populate an array of INSERT queries to add the data for the table to the database.
@@ -14,6 +16,9 @@ export const createInsertQuery = (form : any) : string => {
   values.forEach(e => queryArray.push(`INSERT INTO "${form.table}"(${cols}) VALUES ${e}; `));
   return queryArray;
 }
+
+
+/* --- CALLBACK FUNCTIONS --- */
 
 // CREATE 'COLUMN' STRING FOR QUERY
   // Called by createInsertQuery()
@@ -35,7 +40,7 @@ const valuesList = (columns : any, scale : number) => {
   const columnTypes = createRecordFunc(columns, scale);
   const valuesArray : any = [];
   // determine maximum number of records Postgres will allow per insert query - with buffer
-  let maxRecords : number = 20; // columns.length;
+  let maxRecords : number = 10; // columns.length;
   let list : string = '';
   // create the number of records equal to the scale of the table
   for (let i : number = 0; i < scale; i += 1) {
@@ -65,7 +70,7 @@ const valuesList = (columns : any, scale : number) => {
 // Arguments: column = form.columns, scale = form.scale
 const createRecordFunc = (columns : any, scale : number) => {
   let output : Array<object> = [];
-  columns.forEach(e => {    
+  columns.forEach(e => {
     const {dataCategory, dataType} = e;
     if (dataCategory === 'random') output.push({random : true, func : fakerLink[dataType]});
     else if (dataCategory === 'repeating' || dataCategory === 'unique') output.push({random : false, func : types[dataCategory][dataType](e.data, scale)});
@@ -77,9 +82,6 @@ const createRecordFunc = (columns : any, scale : number) => {
   } );
   return output;
 };
-
-
-// module.exports = createInsertQuery;
 
 /* UNCOMMENT BELOW FOR TESTING OBJECT AND FUNCTION */
 // const fromApp = {

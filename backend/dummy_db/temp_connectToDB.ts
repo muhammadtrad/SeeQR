@@ -1,10 +1,10 @@
-// Temporary Hardcoded database scaling
-// To test this code:
-// 1. Copy and paste this code into the bottom of main.ts
-// 2. Create a button on the frontend that activates the route 'generate-data'
-// 3. Test the button out out on the defaultDB tab, should only work in that tab because 'defaultDB' is hardcoded below
+// // Temporary Hardcoded database scaling
+// // To test this code:
+// // 1. Copy and paste this code into the bottom of main.ts
+// // 2. Create a button on the frontend that activates the route 'generate-data'
+// // 3. Test the button out out on the defaultDB tab, should only work in that tab because 'defaultDB' is hardcoded below
 
-/*=== SAMPLE OBJECT TO BE SENT FROM USER INTERFACE TO DATA GENERATOR ===*/
+// /*=== SAMPLE OBJECT TO BE SENT FROM USER INTERFACE TO DATA GENERATOR ===*/
 // const fromApp = {
 //   schema: 'public', //used to be schema1
 //   table: 'table1',
