@@ -7,7 +7,7 @@ const types = require('./dataTypeLibrary');
   // An array is used to break the insert into smaller pieces if needed.
   // Postgres limits insert queries to 100,000 entry values: 100,000 / # of columns = Max number of rows per query.
 // Arguments: form = DB generation form object submitted by user - from front end
-function createInsertQuery (form : any) : string {
+export const createInsertQuery = (form : any) : string => {
   const values = valuesList(form.columns, form.scale);
   const cols = columnList(form.columns);
   const queryArray : any = [];
@@ -19,7 +19,7 @@ function createInsertQuery (form : any) : string {
   // Called by createInsertQuery()
 // deconstruct and convert the column names to a single string
 // Arguments: column = form.columns
-const columnList = (columns : Array<object>) => {      
+const columnList = (columns : Array<object>) => {
   let list : string = '';
   columns.forEach( (e : any , i : number) => {
     list += e.name;
@@ -79,7 +79,7 @@ const createRecordFunc = (columns : any, scale : number) => {
 };
 
 
-module.exports = createInsertQuery;
+// module.exports = createInsertQuery;
 
 /* UNCOMMENT BELOW FOR TESTING OBJECT AND FUNCTION */
 // const fromApp = {
